@@ -1,0 +1,31 @@
+# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
+version: '3.7'
+
+# Define services
+services:
+  #Database
+  geonames-db:
+    container_name: geonames-db
+    hostname: geonames-db
+    image: postgres
+    restart: always
+    volumes:
+      - geonames-db:/var/lib/postgresql/data
+      - ./db/script/00_geoname_schema.sql:/docker-entrypoint-initdb.d/00_geoname_schema.sql
+      - ./db/data:/db
+    environment:
+      - POSTGRES_DB=geonames_db
+      - POSTGRES_USER=geonames_admin
+      - POSTGRES_PASSWORD=resource_123
+    networks:
+      - db
+    ports: 
+      - "54320:5432"
+
+# Networks to be created to facilitate communication between containers
+networks:
+  db:
+
+volumes:
+  geonames-db:
+    driver: local
