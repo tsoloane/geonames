@@ -18,7 +18,7 @@ processCountry() {
   else
     echo "No Geonames file for $1"
   fi
-  echo "- Done with geonames"
+  echo "- Done loading geonames for $1"
 
   #Download the alternate names file
   if (curl "$ALTERNAME_PREFIX/$1.zip" -s -o "alternames-$1.zip"); then
@@ -30,7 +30,7 @@ processCountry() {
   else
     echo "No alternate names file found for $1"
   fi
-  echo "-- Done with alternate names"
+  echo "-- Done loading alternate names for $1"
 
   # Now manage the postal codes.
   #Check if the file exists then download else report absence
@@ -43,7 +43,7 @@ processCountry() {
   else
     echo "No postal codes available for $1"
   fi
-  echo "-- Done with postal codes"
+  echo "-- Done loading postal codes for $1"
 }
 
 if [[ $# -eq 0 ]]; then
